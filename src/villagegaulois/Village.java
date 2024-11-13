@@ -84,7 +84,7 @@ public class Village {
 	}
 
 	public void partirVendeur(Gaulois vendeur) {
-		Etal etal = marche.trouverVendeur(vendeur);
+		lEtal etal = marche.trouverVendeur(vendeur);
 		if (etal != null) {
 			etal.libererEtal();
 		}
@@ -96,7 +96,7 @@ public class Village {
 
 	public Gaulois[] rechercherVendeursProduit(String produit) {
 		Gaulois[] vendeurs = null;
-		Etal[] etalsProduit = marche.trouverEtals(produit);
+		lEtal[] etalsProduit = marche.trouverEtals(produit);
 		if (etalsProduit != null) {
 			vendeurs = new Gaulois[etalsProduit.length];
 			for (int i = 0; i < etalsProduit.length; i++) {
@@ -106,7 +106,7 @@ public class Village {
 		return vendeurs;
 	}
 
-	public Etal rechercherEtal(Gaulois vendeur) {
+	public lEtal rechercherEtal(Gaulois vendeur) {
 		return marche.trouverVendeur(vendeur);
 	}
 
@@ -116,10 +116,10 @@ public class Village {
 
 	////////////////////// Classe Interne ///////////////////////
 	private static class Marche {
-		private Etal[] etals;
+		private lEtal[] etals;
 
 		private Marche(int nbEtals) {
-			etals = new Etal[nbEtals];
+			etals = new lEtal[nbEtals];
 			for (int i = 0; i < nbEtals; i++) {
 				etals[i] = new Etal();
 			}
@@ -147,16 +147,16 @@ public class Village {
 			return indiceEtalLibre;
 		}
 
-		private Etal[] trouverEtals(String produit) {
+		private lEtal[] trouverEtals(String produit) {
 			int nbEtal = 0;
-			for (Etal etal : etals) {
+			for (lEtal etal : etals) {
 				if (etal.isEtalOccupe() && etal.contientProduit(produit)) {
 					nbEtal++;
 				}
 			}
-			Etal[] etalsProduitsRecherche = null;
+			lEtal[] etalsProduitsRecherche = null;
 			if (nbEtal > 0) {
-				etalsProduitsRecherche = new Etal[nbEtal];
+				etalsProduitsRecherche = new lEtal[nbEtal];
 				int nbEtalTrouve = 0;
 				for (int i = 0; i < etals.length
 						&& nbEtalTrouve < nbEtal; i++) {
@@ -170,9 +170,9 @@ public class Village {
 			return etalsProduitsRecherche;
 		}
 
-		private Etal trouverVendeur(Gaulois gaulois) {
+		private lEtal trouverVendeur(Gaulois gaulois) {
 			boolean vendeurTrouve = false;
-			Etal etalVendeur = null;
+			lEtal etalVendeur = null;
 			for (int i = 0; i < etals.length && !vendeurTrouve; i++) {
 				Gaulois vendeur = etals[i].getVendeur();
 				if (vendeur != null) {
@@ -191,7 +191,7 @@ public class Village {
 
 		private int getNbEtalsOccupe() {
 			int nbEtal = 0;
-			for (Etal etal : etals) {
+			for (lEtal etal : etals) {
 				if (etal.isEtalOccupe()) {
 					nbEtal++;
 				}
@@ -210,7 +210,7 @@ public class Village {
 			int tailleTableau = getNbEtalsOccupe() * 3;
 			String[] donnees = new String[tailleTableau];
 			for (int i = 0, j = 0; i < etals.length; i++) {
-				Etal etal = etals[i];
+				lEtal etal = etals[i];
 				if (etal.isEtalOccupe()) {
 					Gaulois vendeur = etal.getVendeur();
 					int nbProduit = etal.getQuantite();

@@ -1,8 +1,8 @@
 package controleur;
 
 import personnages.Gaulois;
-import villagegaulois.Etal;
 import villagegaulois.Village;
+import villagegaulois.lEtal;
 
 public class ControlTrouverEtalVendeur {
 	private Village village;
@@ -11,9 +11,9 @@ public class ControlTrouverEtalVendeur {
 		this.village = village;
 	}
 
-	public Etal trouverEtalVendeur(String nomVendeur) {
+	public lEtal trouverEtalVendeur(String nomVendeur) {
 		Gaulois gaulois = village.trouverHabitant(nomVendeur);
-		Etal etal = null;
+		lEtal etal = null;
 		if(gaulois != null) {
 			etal = village.rechercherEtal(gaulois);
 		}
