@@ -1,6 +1,7 @@
 package controleur;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,27 +18,29 @@ class ControlAfficherVillageTest {
 	void setUp() throws Exception {
 		Village village = new Village("leVillage", 19, 20);
 		Chef chef = new Chef("chef", 4, village);
+		village.setChef(chef);
 		cm = new ControlEmmenager(village);
 		cm.ajouterGaulois("Bonemine", 3);
 		cm.ajouterDruide("Panoramix", 4, 5, 6);
 		caff = new ControlAfficherVillage(village);
-		System.out.println(caff.donnerNomsVillageois());
 	}
 
 	@Test
 	void testDonnerNomsVillageois() {
-		String[] nv = new String
-		// assertArrayEquals(caff.donnerNomsVillageois(), null);
+		String[] nv = { "chef", "Bonemine", "le druide Panoramix" };
+		assertArrayEquals(caff.donnerNomsVillageois(), nv);
 	}
 
 	@Test
 	void testDonnerNomVillage() {
-		fail("Not yet implemented");
+		String nom = caff.donnerNomVillage();
+		assertEquals("leVillage", nom);
 	}
 
 	@Test
 	void testDonnerNbEtals() {
-		fail("Not yet implemented");
+		int nb = caff.donnerNbEtals();
+		assertEquals(20, nb);
 	}
 
 }
